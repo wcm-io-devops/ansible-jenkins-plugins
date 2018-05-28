@@ -8,7 +8,6 @@ jenkins_plugins_present: []
 jenkins_plugins_absent: []
 # format:
 #  - name: [plugin-short-name]
-#    version: "[plugin-version]"
 
 # jenkins admin username
 jenkins_plugins_admin_username: admin
