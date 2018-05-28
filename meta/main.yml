@@ -1,0 +1,34 @@
+galaxy_info:
+  author: Tobias Richter
+  description: Role for maintaining plugins on Jenkins instances.
+  company: pro!vision
+  issue_tracker_url: https://wcm-io.atlassian.net
+  license: Apache
+  min_ansible_version: 2.0
+
+  platforms:
+  - name: Debian
+    versions:
+    - stretch
+
+  galaxy_tags:
+    - wcmio
+    - jenkins
+
+dependencies:
+  # ensure service is started
+  - { role: wcm-io-devops.jenkins-service,
+      jenkins_service_hostname: "{{ jenkins_plugins_jenkins_hostname }}",
+      jenkins_service_port: "{{ jenkins_plugins_jenkins_port }}",
+      jenkins_service_url_prefix: "{{ jenkins_plugins_jenkins_url_prefix }}",
+      jenkins_service_state: started
+  }
+  # gather facts about the jenkins
+  - { role: wcm-io-devops.jenkins-facts,
+      jenkins_facts_admin_username: "{{ jenkins_plugins_admin_username }}",
+      jenkins_facts_admin_password: "{{ jenkins_plugins_admin_password }}",
+      jenkins_facts_jenkins_hostname: "{{ jenkins_plugins_jenkins_hostname }}",
+      jenkins_facts_jenkins_port: "{{ jenkins_plugins_jenkins_port }}",
+      jenkins_facts_jenkins_url_prefix: "{{ jenkins_plugins_jenkins_url_prefix }}",
+      tags: ['wcm-io-devops.jenkins-plugins.jenkins-facts']
+   }

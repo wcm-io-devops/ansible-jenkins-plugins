@@ -1,0 +1,47 @@
+# list of plugins that should be present/installed
+jenkins_plugins_present: []
+# format:
+#  - name: [plugin-short-name]
+#    version: "[plugin-version]"
+
+# list of plugins that should be absent/uninstalled
+jenkins_plugins_absent: []
+# format:
+#  - name: [plugin-short-name]
+#    version: "[plugin-version]"
+
+# jenkins admin username
+jenkins_plugins_admin_username: admin
+
+# jenkins admin password
+jenkins_plugins_admin_password: admin
+
+# path to the jenkins directory
+jenkins_plugins_jenkins_home: /var/lib/jenkins
+
+# hostname of the jenkins instance
+jenkins_plugins_jenkins_hostname: localhost
+
+# http port of the jenkins instance
+jenkins_plugins_jenkins_port: 8080
+
+# url prefix of the jenkins instance, e.g. when running in tomcat
+jenkins_plugins_jenkins_url_prefix: ""
+
+# path to the jenkins update directory
+jenkins_plugins_jenkins_update_dir: "{{ jenkins_plugins_jenkins_home }}/updates"
+
+# the base url of the jenkins instance
+jenkins_plugins_jenkins_base_url: "http://{{ jenkins_plugins_jenkins_hostname }}:{{ jenkins_plugins_jenkins_port }}{{ jenkins_plugins_jenkins_url_prefix }}"
+
+# maximum seconds since the last jenkins plugin update check
+jenkins_plugins_updates_expiration: 86400
+
+# timeout for jenkins update operation
+jenkins_plugins_updates_timeout: 60
+
+# controls if the role will fail when plugins are in failed state after installation
+jenkins_plugins_failedplugins_check: true
+
+# when set to enable the role will log some debug information
+jenkins_plugins_debug: false
