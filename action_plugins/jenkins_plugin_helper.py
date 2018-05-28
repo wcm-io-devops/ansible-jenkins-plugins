@@ -59,23 +59,13 @@ class ActionModule(ActionBase):
         tmp = {}
 
         for key in managed_plugins:
-            managed_plugin = managed_plugins.get(key)
-            try:
-                managed_plugin_absent = managed_plugin.get("absent", False)
-            except AnsibleOptionsError as err:
-                managed_plugin_absent = False
-
+            display.vv("Check if plugin [%s] has to be uninstalled" % (key))
             existing_plugin = existing_plugins.get(key, None)
-            plugin_facts = False
-
-            if managed_plugin_absent is True and existing_plugin is not None:
-                plugin_facts = {
+            if existing_plugin is not None:
+                display.vv("Mark plugin [%s] as absent " % (key))
+                tmp[key] = {
                     "state": "absent",
                 }
-
-            if plugin_facts is not False:
-                display.vv("Mark plugin [%s] as absent " % (key))
-                tmp[key] = plugin_facts
 
         return tmp
 

@@ -75,11 +75,10 @@
     timeout: "{{ jenkins_plugins_updates_timeout }}"
     updates_expiration: "{{ jenkins_plugins_updates_expiration }}"
     url: "{{ jenkins_plugins_jenkins_base_url }}"
-  with_dict: "{{ jenkins_plugin_facts_uninstall_plugins | default({}) }}"
+  with_dict: "{{ jenkins_plugins_uninstall_plugins | default({}) }}"
   notify:
     - wcm-io-devops.jenkins-service restart
   register: _jenkins_plugins_uninstall_result
-
 
 - name: Flush pending (restart) handlers before continue.
   meta: flush_handlers
