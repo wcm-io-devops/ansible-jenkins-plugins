@@ -26,6 +26,8 @@
     user: "{{ jenkins_plugins_admin_username }}"
     password: "{{ jenkins_plugins_admin_password }}"
     method: "POST"
+    headers:
+      Jenkins-Crumb: '{{ jenkins_facts_csrf_crumb }}'
     force_basic_auth: true
     status_code: 302
   tags:
