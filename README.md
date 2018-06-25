@@ -81,6 +81,31 @@ Controls if the role will fail when plugins are in failed state after installati
 
 When set to enable the role will log some debug information.
 
+    jenkins_plugins_proxy_username: ""
+
+The username for the update center proxy.
+
+    jenkins_plugins_proxy_password: ""
+
+The password for the update center proxy.
+
+    #jenkins_plugins_proxy_host: ""
+
+The update center proxy host, only evaluated when jenkins_plugins_proxy_port is set.
+
+    #jenkins_plugins_proxy_port: ""
+
+The update center proxy port, only evaluated when jenkins_plugins_proxy_host is set.
+
+    jenkins_plugins_proxy_no_proxy_host: ""
+
+The update center proxy no proxy hosts list.
+
+    jenkins_plugins_complete_initial_setup: false
+
+Controls if the initial setup of the jenkins instance should be completed.
+This may be necessary in proxy environments where the jenkins instance still thinks it is in offline mode.
+
 ## Dependencies
 
 This role depends on the

@@ -20,6 +20,31 @@
       - "{{ jenkins_plugins_updates_expiration }}"
   when: jenkins_plugins_debug == true
 
+- name: "Configure Update Center Proxy"
+  jenkins_script:
+    script: "{{ lookup('file', 'scripts/groovy/configure_update_center_proxy.groovy') }}"
+    user: "{{ jenkins_plugins_admin_username }}"
+    password: "{{ jenkins_plugins_admin_password }}"
+    url: "{{ jenkins_plugins_jenkins_base_url }}"
+    args:
+      proxy_username: "{{ jenkins_plugins_proxy_username }}"
+      proxy_password: "{{ jenkins_plugins_proxy_password }}"
+      proxy_host: "{{ jenkins_plugins_proxy_host }}"
+      proxy_port: "{{ jenkins_plugins_proxy_port }}"
+      proxy_no_proxy_host: "{{ jenkins_plugins_proxy_no_proxy_host }}"
+      complete_initial_setup: "{{ jenkins_plugins_complete_initial_setup | lower }}"
+  when:
+    - jenkins_plugins_proxy_host is defined
+    - jenkins_plugins_proxy_port is defined
+  register: jenkins_plugins_proxy_result
+  changed_when: jenkins_plugins_proxy_result.output | regex_replace('^Result:\\s*(.*)\\n*$', '\\1') | bool
+  notify:
+    - wcm-io-devops.jenkins-service restart
+
+- name: Flush pending (restart) handlers when proxy configuration has changed.
+  meta: flush_handlers
+  when: jenkins_plugins_proxy_result.output | regex_replace('^Result:\\s*(.*)\\n*$', '\\1') | bool
+
 - name: trigger jenkins update check.
   uri:
     url: "{{ jenkins_plugins_jenkins_base_url }}/pluginManager/checkUpdatesServer"
