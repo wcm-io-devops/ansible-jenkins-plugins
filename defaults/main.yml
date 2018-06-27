@@ -39,6 +39,9 @@ jenkins_plugins_updates_expiration: 86400
 # Timeout for jenkins update operation
 jenkins_plugins_updates_timeout: 60
 
+# URL of the Update Center
+jenkins_plugins_updates_url: https://updates.jenkins.io/
+
 # Controls if the role will fail when plugins are in failed state after installation
 jenkins_plugins_failedplugins_check: true
 
@@ -57,8 +60,10 @@ jenkins_plugins_proxy_password: ""
 # The update center proxy port, only evaluated when jenkins_plugins_proxy_host is set
 #jenkins_plugins_proxy_port: ""
 
-# The update center proxy no proxy hosts list
-jenkins_plugins_proxy_no_proxy_host: ""
+# The update center proxy no proxy hosts list, one item per host
+jenkins_plugins_proxy_no_proxy_hosts: []
+#  - host1
+#  - host2
 
 # Controls if the initial setup of the jenkins instance should be completed.
 # This may be necessary in proxy environments where the jenkins instance still thinks it is in offline mode

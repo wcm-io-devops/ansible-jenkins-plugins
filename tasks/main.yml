@@ -20,24 +20,22 @@
       - "{{ jenkins_plugins_updates_expiration }}"
   when: jenkins_plugins_debug == true
 
-- name: "Configure Update Center Proxy"
+- name: "Configure Update Center"
   jenkins_script:
-    script: "{{ lookup('file', 'scripts/groovy/configure_update_center_proxy.groovy') }}"
+    script: "{{ lookup('file', 'scripts/groovy/configure_update_center.groovy') }}"
     user: "{{ jenkins_plugins_admin_username }}"
     password: "{{ jenkins_plugins_admin_password }}"
     url: "{{ jenkins_plugins_jenkins_base_url }}"
     args:
+      updates_url: "{{ jenkins_plugins_updates_url }}"
       proxy_username: "{{ jenkins_plugins_proxy_username }}"
       proxy_password: "{{ jenkins_plugins_proxy_password }}"
-      proxy_host: "{{ jenkins_plugins_proxy_host }}"
-      proxy_port: "{{ jenkins_plugins_proxy_port }}"
-      proxy_no_proxy_host: "{{ jenkins_plugins_proxy_no_proxy_host }}"
+      proxy_host: "{{ jenkins_plugins_proxy_host | default('') }}"
+      proxy_port: "{{ jenkins_plugins_proxy_port | default(-1)}}"
+      proxy_no_proxy_hosts: "{{ jenkins_plugins_proxy_no_proxy_hosts | join(',') }}"
       complete_initial_setup: "{{ jenkins_plugins_complete_initial_setup | lower }}"
-  when:
-    - jenkins_plugins_proxy_host is defined
-    - jenkins_plugins_proxy_port is defined
-  register: jenkins_plugins_proxy_result
-  changed_when: jenkins_plugins_proxy_result.output | regex_replace('^Result:\\s*(.*)\\n*$', '\\1') | bool
+  register: jenkins_plugins_update_center_result
+  changed_when: jenkins_plugins_update_center_result.output | regex_replace('^Result:\\s*(.*)\\n*$', '\\1') | bool
   notify:
     - wcm-io-devops.jenkins-service restart
 
@@ -72,6 +70,8 @@
         - "{{ jenkins_plugins_install_plugins }}"
         - "jenkins_plugins_uninstall_plugins"
         - "{{ jenkins_plugins_uninstall_plugins }}"
+        - "jenkins_plugins_updates_url"
+        - "{{ jenkins_plugins_updates_url }}"
   when: jenkins_plugins_debug == true
 
 - name: Install/Manage Jenkins plugins.
@@ -83,6 +83,7 @@
     url_password: "{{ jenkins_plugins_admin_password }}"
     state: "{{ item.value['state'] | default(present) }}"
     timeout: "{{ jenkins_plugins_updates_timeout }}"
+    updates_url: "{{ jenkins_plugins_updates_url }}"
     updates_expiration: "{{ jenkins_plugins_updates_expiration }}"
     url: "{{ jenkins_plugins_jenkins_base_url }}"
   with_dict: "{{ jenkins_plugins_install_plugins | default({}) }}"

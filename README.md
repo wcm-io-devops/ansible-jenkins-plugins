@@ -73,6 +73,10 @@ Maximum seconds since the last jenkins plugin update check.
 
 Timeout for jenkins update operation.
 
+    jenkins_plugins_updates_url: https://updates.jenkins.io/
+
+URL of the Update Center.
+
     jenkins_plugins_failedplugins_check: true
 
 Controls if the role will fail when plugins are in failed state after installation.
