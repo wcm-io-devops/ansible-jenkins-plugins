@@ -11,13 +11,17 @@
     msg: no jenkins instance running on {{ jenkins_plugins_jenkins_base_url }}
   when: _jenkins_plugins_jenkins_result.x_jenkins is not defined
 
-- name: Log update age
+- name: Log update details
   debug:
     msg:
       - "jenkins_facts_updatecenter.updateAgeSeconds"
       - "{{ jenkins_facts_updatecenter.updateAgeSeconds }}"
       - "jenkins_plugins_updates_expiration"
       - "{{ jenkins_plugins_updates_expiration }}"
+      - "jenkins_plugins_updates_base_url"
+      - "{{ jenkins_plugins_updates_base_url }}"
+      - "jenkins_plugins_updates_update_site_url"
+      - "{{ jenkins_plugins_updates_update_site_url }}"
   when: jenkins_plugins_debug == true
 
 - name: "Configure Update Center"
@@ -27,7 +31,7 @@
     password: "{{ jenkins_plugins_admin_password }}"
     url: "{{ jenkins_plugins_jenkins_base_url }}"
     args:
-      updates_url: "{{ jenkins_plugins_updates_url }}"
+      updates_url: "{{ jenkins_plugins_updates_update_site_url }}"
       proxy_username: "{{ jenkins_plugins_proxy_username }}"
       proxy_password: "{{ jenkins_plugins_proxy_password }}"
       proxy_host: "{{ jenkins_plugins_proxy_host | default('') }}"
@@ -70,8 +74,6 @@
         - "{{ jenkins_plugins_install_plugins }}"
         - "jenkins_plugins_uninstall_plugins"
         - "{{ jenkins_plugins_uninstall_plugins }}"
-        - "jenkins_plugins_updates_url"
-        - "{{ jenkins_plugins_updates_url }}"
   when: jenkins_plugins_debug == true
 
 - name: Install/Manage Jenkins plugins.
@@ -83,7 +85,7 @@
     url_password: "{{ jenkins_plugins_admin_password }}"
     state: "{{ item.value['state'] | default(present) }}"
     timeout: "{{ jenkins_plugins_updates_timeout }}"
-    updates_url: "{{ jenkins_plugins_updates_host }}"
+    updates_url: "{{ jenkins_plugins_updates_base_url }}"
     updates_expiration: "{{ jenkins_plugins_updates_expiration }}"
     url: "{{ jenkins_plugins_jenkins_base_url }}"
   with_dict: "{{ jenkins_plugins_install_plugins | default({}) }}"
@@ -99,7 +101,7 @@
     url_password: "{{ jenkins_plugins_admin_password }}"
     state: "{{ item.value['state'] }}"
     timeout: "{{ jenkins_plugins_updates_timeout }}"
-    updates_url: "{{ jenkins_plugins_updates_host }}"
+    updates_url: "{{ jenkins_plugins_updates_base_url }}"
     updates_expiration: "{{ jenkins_plugins_updates_expiration }}"
     url: "{{ jenkins_plugins_jenkins_base_url }}"
   with_dict: "{{ jenkins_plugins_uninstall_plugins | default({}) }}"
