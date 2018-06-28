@@ -73,9 +73,13 @@ Maximum seconds since the last jenkins plugin update check.
 
 Timeout for jenkins update operation.
 
-    jenkins_plugins_updates_url: https://updates.jenkins.io/
+    jenkins_plugins_updates_host: https://updates.jenkins.io
 
-URL of the Update Center.
+URL to jenkins update host.
+
+    jenkins_plugins_updates_url: "{{ jenkins_plugins_updates_host }}/update-center.json"
+
+URL to update-center.json.
 
     jenkins_plugins_failedplugins_check: true
 

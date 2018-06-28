@@ -39,8 +39,11 @@ jenkins_plugins_updates_expiration: 86400
 # Timeout for jenkins update operation
 jenkins_plugins_updates_timeout: 60
 
-# URL of the Update Center
-jenkins_plugins_updates_url: https://updates.jenkins.io/
+# URL to jenkins update host
+jenkins_plugins_updates_host: https://updates.jenkins.io
+
+# URL to update-center.json
+jenkins_plugins_updates_url: "{{ jenkins_plugins_updates_host }}/update-center.json"
 
 # Controls if the role will fail when plugins are in failed state after installation
 jenkins_plugins_failedplugins_check: true
