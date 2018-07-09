@@ -11,14 +11,41 @@
     msg: no jenkins instance running on {{ jenkins_plugins_jenkins_base_url }}
   when: _jenkins_plugins_jenkins_result.x_jenkins is not defined
 
-- name: Log update age
+- name: Log update details
   debug:
     msg:
       - "jenkins_facts_updatecenter.updateAgeSeconds"
       - "{{ jenkins_facts_updatecenter.updateAgeSeconds }}"
       - "jenkins_plugins_updates_expiration"
       - "{{ jenkins_plugins_updates_expiration }}"
+      - "jenkins_plugins_updates_base_url"
+      - "{{ jenkins_plugins_updates_base_url }}"
+      - "jenkins_plugins_updates_update_site_url"
+      - "{{ jenkins_plugins_updates_update_site_url }}"
   when: jenkins_plugins_debug == true
+
+- name: "Configure Update Center"
+  jenkins_script:
+    script: "{{ lookup('file', 'scripts/groovy/configure_update_center.groovy') }}"
+    user: "{{ jenkins_plugins_admin_username }}"
+    password: "{{ jenkins_plugins_admin_password }}"
+    url: "{{ jenkins_plugins_jenkins_base_url }}"
+    args:
+      updates_url: "{{ jenkins_plugins_updates_update_site_url }}"
+      proxy_username: "{{ jenkins_plugins_proxy_username }}"
+      proxy_password: "{{ jenkins_plugins_proxy_password }}"
+      proxy_host: "{{ jenkins_plugins_proxy_host | default('') }}"
+      proxy_port: "{{ jenkins_plugins_proxy_port | default(-1)}}"
+      proxy_no_proxy_hosts: "{{ jenkins_plugins_proxy_no_proxy_hosts | join(',') }}"
+      complete_initial_setup: "{{ jenkins_plugins_complete_initial_setup | lower }}"
+  register: jenkins_plugins_update_center_result
+  changed_when: jenkins_plugins_update_center_result.output | regex_replace('^Result:\\s*(.*)\\n*$', '\\1') | bool
+  notify:
+    - wcm-io-devops.jenkins-service restart
+
+- name: Flush pending (restart) handlers when proxy configuration has changed.
+  meta: flush_handlers
+  when: jenkins_plugins_proxy_result.output | regex_replace('^Result:\\s*(.*)\\n*$', '\\1') | bool
 
 - name: trigger jenkins update check.
   uri:
@@ -58,6 +85,7 @@
     url_password: "{{ jenkins_plugins_admin_password }}"
     state: "{{ item.value['state'] | default(present) }}"
     timeout: "{{ jenkins_plugins_updates_timeout }}"
+    updates_url: "{{ jenkins_plugins_updates_base_url }}"
     updates_expiration: "{{ jenkins_plugins_updates_expiration }}"
     url: "{{ jenkins_plugins_jenkins_base_url }}"
   with_dict: "{{ jenkins_plugins_install_plugins | default({}) }}"
@@ -73,6 +101,7 @@
     url_password: "{{ jenkins_plugins_admin_password }}"
     state: "{{ item.value['state'] }}"
     timeout: "{{ jenkins_plugins_updates_timeout }}"
+    updates_url: "{{ jenkins_plugins_updates_base_url }}"
     updates_expiration: "{{ jenkins_plugins_updates_expiration }}"
     url: "{{ jenkins_plugins_jenkins_base_url }}"
   with_dict: "{{ jenkins_plugins_uninstall_plugins | default({}) }}"
