@@ -89,7 +89,7 @@
     updates_expiration: "{{ jenkins_plugins_updates_expiration }}"
     url: "{{ jenkins_plugins_jenkins_base_url }}"
   with_dict: "{{ jenkins_plugins_install_plugins | default({}) }}"
-  changed_when: "{{ jenkins_plugins_install_plugins | default({}) }}"
+  changed_when: jenkins_plugins_install_plugins | default({}) | length > 0
   notify:
     - wcm-io-devops.jenkins-service restart
   register: _jenkins_plugins_install_result
@@ -106,6 +106,7 @@
     updates_expiration: "{{ jenkins_plugins_updates_expiration }}"
     url: "{{ jenkins_plugins_jenkins_base_url }}"
   with_dict: "{{ jenkins_plugins_uninstall_plugins | default({}) }}"
+  changed_when: jenkins_plugins_uninstall_plugins | default({}) | length > 0
   notify:
     - wcm-io-devops.jenkins-service restart
   register: _jenkins_plugins_uninstall_result
