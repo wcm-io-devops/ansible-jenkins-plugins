@@ -33,5 +33,5 @@ dependencies:
       jenkins_facts_jenkins_hostname: "{{ jenkins_plugins_jenkins_hostname }}",
       jenkins_facts_jenkins_port: "{{ jenkins_plugins_jenkins_port }}",
       jenkins_facts_jenkins_url_prefix: "{{ jenkins_plugins_jenkins_url_prefix }}",
-      tags: ['wcm_io_devops.jenkins_plugins.jenkins-facts']
+      tags: ['wcm_io_devops.jenkins_plugins.jenkins_facts']
    }
