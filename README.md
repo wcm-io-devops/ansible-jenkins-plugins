@@ -1,4 +1,4 @@
-# wcm-io-devops.jenkins-plugins
+# wcm_io_devops.jenkins_plugins
 
 This role manages the installation, update and uninstallation of Jenkins
 Plugins in a faster way than simply using the `jenkins_plugin`.
@@ -117,12 +117,12 @@ This may be necessary in proxy environments where the jenkins instance still thi
 ## Dependencies
 
 This role depends on the
-[wcm-io-devops.jenkins-facts](https://github.com/wcm-io-devops/ansible-jenkins-facts)
+[wcm_io_devops.jenkins_facts](https://github.com/wcm-io-devops/ansible-jenkins-facts)
 role to retrieve the list of installed plugins from the Jenkins
 instance.
 
 It also depends on the
-[wcm-io-devops.jenkins-service](https://github.com/wcm-io-devops/ansible-jenkins-service)
+[wcm_io_devops.jenkins_service](https://github.com/wcm-io-devops/ansible-jenkins-service)
 role to restart the Jenkins instance when plugins were installed/updated
 or uninstalled.
 
@@ -136,7 +136,7 @@ Installs the greenballs plugin in version 1.15 on the target instance.
 	        - name: greenballs
 	          version: "1.15"
 	  roles:
-	    - role: wcm-io-devops.jenkins-plugins
+	    - role: wcm_io_devops.jenkins_plugins
 
 ## License
 

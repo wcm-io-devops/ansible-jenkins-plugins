@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: jenkins_plugins
   author: Tobias Richter
   description: Role for maintaining plugins on Jenkins instances.
   company: pro!vision
@@ -17,7 +18,7 @@ galaxy_info:
 
 dependencies:
   # ensure service is started
-  - { role: wcm-io-devops.jenkins-service,
+  - { role: wcm_io_devops.jenkins_service,
       jenkins_service_hostname: "{{ jenkins_plugins_jenkins_hostname }}",
       jenkins_service_port: "{{ jenkins_plugins_jenkins_port }}",
       jenkins_service_url_prefix: "{{ jenkins_plugins_jenkins_url_prefix }}",
@@ -26,11 +27,11 @@ dependencies:
       jenkins_service_state: started
   }
   # gather facts about the jenkins
-  - { role: wcm-io-devops.jenkins-facts,
+  - { role: wcm_io_devops.jenkins_facts,
       jenkins_facts_admin_username: "{{ jenkins_plugins_admin_username }}",
       jenkins_facts_admin_password: "{{ jenkins_plugins_admin_password }}",
       jenkins_facts_jenkins_hostname: "{{ jenkins_plugins_jenkins_hostname }}",
       jenkins_facts_jenkins_port: "{{ jenkins_plugins_jenkins_port }}",
       jenkins_facts_jenkins_url_prefix: "{{ jenkins_plugins_jenkins_url_prefix }}",
-      tags: ['wcm-io-devops.jenkins-plugins.jenkins-facts']
+      tags: ['wcm_io_devops.jenkins_plugins.jenkins-facts']
    }
