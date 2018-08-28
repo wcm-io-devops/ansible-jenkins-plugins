@@ -37,8 +37,8 @@ class ActionModule(ActionBase):
         except AnsibleOptionsError as err:
             return self._fail_result(result, err.message)
 
-        normalized_present_plugins =  self._normalize_plugins(plugins_present)
-        normalized_absent_plugins =  self._normalize_plugins(plugins_absent)
+        normalized_present_plugins = self._normalize_plugins(plugins_present)
+        normalized_absent_plugins = self._normalize_plugins(plugins_absent)
 
         present_plugins = self._calculate_present_plugins(normalized_present_plugins, plugins_installed)
         uninstall_plugins = self._calculate_absent_plugins(normalized_absent_plugins, plugins_installed)
@@ -74,7 +74,7 @@ class ActionModule(ActionBase):
                 managed_plugin_absent = managed_plugin.get("absent", False)
                 managed_plugin_version = managed_plugin.get("version", None)
                 managed_plugin_latest = managed_plugin.get("latest", False)
-            except AnsibleOptionsError as err:
+            except AnsibleOptionsError:
                 managed_plugin_version = None
                 managed_plugin_latest = False
                 managed_plugin_absent = False
@@ -124,7 +124,8 @@ class ActionModule(ActionBase):
                     }
 
             if plugin_facts is not False:
-                display.vv("Change required for plugin: [%s], plugin facts: %s, new: %s, old: %s" % (key, plugin_facts, managed_plugin, existing_plugin))
+                display.vv("Change required for plugin: [%s], plugin facts: %s, new: %s, old: %s" %
+                           (key, plugin_facts, managed_plugin, existing_plugin))
                 tmp[key] = plugin_facts
 
         return tmp
