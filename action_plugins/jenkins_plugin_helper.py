@@ -142,7 +142,6 @@ class ActionModule(ActionBase):
                 "pinned": plugin.get("pinned", False),
                 "absent": plugin.get("absent", False),
                 "latest": plugin.get("latest", False),
-
             }
             tmp[plugin.get('name')] = normalized_managed_plugin
         return tmp
