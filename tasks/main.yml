@@ -66,6 +66,8 @@
     plugins_installed: "{{ jenkins_facts_plugins_installed }}"
     plugins_present: "{{ jenkins_plugins_present }}"
     plugins_absent: "{{ jenkins_plugins_absent }}"
+  tags:
+    - skip_ansible_lint
 
 - name: Log plugins that will be installed/uninstalled.
   debug:
