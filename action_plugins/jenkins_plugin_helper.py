@@ -5,11 +5,6 @@ from __future__ import (absolute_import, division, print_function)
 
 __metaclass__ = type
 
-import yaml
-import os
-import re
-
-from ansible.module_utils._text import to_native
 from ansible.plugins.action import ActionBase
 from ansible.errors import AnsibleOptionsError
 
