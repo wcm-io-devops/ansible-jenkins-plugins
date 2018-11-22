@@ -22,7 +22,7 @@
       - "{{ jenkins_plugins_updates_base_url }}"
       - "jenkins_plugins_updates_update_site_url"
       - "{{ jenkins_plugins_updates_update_site_url }}"
-  when: jenkins_plugins_debug == true
+  when: jenkins_plugins_debug
 
 - name: "Configure Update Center"
   jenkins_script:
@@ -35,7 +35,7 @@
       proxy_username: "{{ jenkins_plugins_proxy_username }}"
       proxy_password: "{{ jenkins_plugins_proxy_password }}"
       proxy_host: "{{ jenkins_plugins_proxy_host | default('') }}"
-      proxy_port: "{{ jenkins_plugins_proxy_port | default(-1)}}"
+      proxy_port: "{{ jenkins_plugins_proxy_port | default(-1) }}"
       proxy_no_proxy_hosts: "{{ jenkins_plugins_proxy_no_proxy_hosts | join(',') }}"
       complete_initial_setup: "{{ jenkins_plugins_complete_initial_setup | lower }}"
   register: jenkins_plugins_update_center_result
@@ -76,7 +76,7 @@
         - "{{ jenkins_plugins_install_plugins }}"
         - "jenkins_plugins_uninstall_plugins"
         - "{{ jenkins_plugins_uninstall_plugins }}"
-  when: jenkins_plugins_debug == true
+  when: jenkins_plugins_debug
 
 - name: Install/Manage Jenkins plugins.
   jenkins_plugin:
@@ -139,6 +139,6 @@
         - "{{ jenkins_facts_plugins_failed }}"
 
   when:
-    - jenkins_plugins_failedplugins_check == true
+    - jenkins_plugins_failedplugins_check
     - (_jenkins_plugins_install_result.changed or _jenkins_plugins_uninstall_result.changed)
 
