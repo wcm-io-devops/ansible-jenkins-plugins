@@ -3,10 +3,9 @@ language: python
 cache: pip
 python: "2.7"
 env:
+  # run against latest version
   - ANSIBLE_VERSION=latest
-  - ANSIBLE_VERSION=2.7.*
-  - ANSIBLE_VERSION=2.6.*
-  - ANSIBLE_VERSION=2.5.*
+  # run against minimal required version
   - ANSIBLE_VERSION=2.4.*
 
 # Use the new container infrastructure
