@@ -2,6 +2,12 @@
 language: python
 cache: pip
 python: "2.7"
+env:
+  - ANSIBLE_VERSION=latest
+  - ANSIBLE_VERSION=2.7.*
+  - ANSIBLE_VERSION=2.6.*
+  - ANSIBLE_VERSION=2.5.*
+  - ANSIBLE_VERSION=2.4.*
 
 # Use the new container infrastructure
 sudo: false
@@ -14,7 +20,8 @@ addons:
 
 install:
   # Install ansible and dependencies
-  - pip install ansible ansible-lint
+  - pip install ansible-lint
+  - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible --upgrade; else pip install ansible=="$ANSIBLE_VERSION" --updated; fi
 
   # Check ansible version
   - ansible --version
