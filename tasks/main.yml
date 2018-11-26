@@ -134,9 +134,9 @@
   - name: "assert that there are no failed plugins."
     assert:
       that: jenkins_facts_plugins_failed | length == 0
-      msg:
-        - "{{ jenkins_facts_plugins_failed | length }} plugin(s) failed to load!"
-        - "{{ jenkins_facts_plugins_failed }}"
+      msg: >
+        {{ jenkins_facts_plugins_failed | length }} plugin(s) failed to load!
+        {{ jenkins_facts_plugins_failed }}
 
   when:
     - jenkins_plugins_failedplugins_check
