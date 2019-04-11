@@ -19,7 +19,7 @@ galaxy_info:
 dependencies:
   # ensure service is started
   - { role: wcm_io_devops.jenkins_service,
-      version: 1.1.0,
+      version: 1.2.0,
       jenkins_service_hostname: "{{ jenkins_plugins_jenkins_hostname }}",
       jenkins_service_port: "{{ jenkins_plugins_jenkins_port }}",
       jenkins_service_url_prefix: "{{ jenkins_plugins_jenkins_url_prefix }}",
