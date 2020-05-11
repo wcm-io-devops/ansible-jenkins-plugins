@@ -105,6 +105,8 @@
     force_basic_auth: true
     url_username: "{{ jenkins_plugins_admin_username }}"
     url_password: "{{ jenkins_plugins_admin_password }}"
+    headers:
+      Jenkins-Crumb: '{{ jenkins_facts_csrf_crumb }}'
   with_dict: "{{ jenkins_plugins_uninstall_plugins | default({}) }}"
   changed_when: _jenkins_plugins_uninstall_result.status == 302
   notify:
