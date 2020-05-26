@@ -55,6 +55,7 @@
     method: "POST"
     headers:
       Jenkins-Crumb: '{{ jenkins_facts_csrf_crumb }}'
+      Cookie: '{{ jenkins_facts_cookie }}'
     force_basic_auth: true
     status_code: 302
   tags:
@@ -107,6 +108,7 @@
     url_password: "{{ jenkins_plugins_admin_password }}"
     headers:
       Jenkins-Crumb: '{{ jenkins_facts_csrf_crumb }}'
+      Cookie: '{{ jenkins_facts_cookie }}'
   with_dict: "{{ jenkins_plugins_uninstall_plugins | default({}) }}"
   changed_when: _jenkins_plugins_uninstall_result.status == 302
   notify:
