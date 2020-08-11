@@ -40,12 +40,6 @@
       complete_initial_setup: "{{ jenkins_plugins_complete_initial_setup | lower }}"
   register: jenkins_plugins_update_center_result
   changed_when: jenkins_plugins_update_center_result.output | regex_replace('^Result:\\s*(.*)\\n*$', '\\1') | bool
-  notify:
-    - wcm_io_devops.jenkins_service restart
-
-- name: Flush pending (restart) handlers when proxy configuration has changed.
-  meta: flush_handlers
-  when: jenkins_plugins_proxy_result.output | regex_replace('^Result:\\s*(.*)\\n*$', '\\1') | bool
 
 - name: trigger jenkins update check.
   uri:
@@ -60,7 +54,10 @@
     status_code: 302
   tags:
     - jenkins-plugins-update-check
-  when: jenkins_facts_updatecenter.updateAgeSeconds > jenkins_plugins_updates_expiration
+  when: (jenkins_facts_updatecenter.updateAgeSeconds > jenkins_plugins_updates_expiration) or jenkins_plugins_update_center_result.changed
+
+- debug:
+    var: jenkins_plugins_update_center_result
 
 - name: Calculate plugins to install/update/remove.
   jenkins_plugin_helper:
@@ -88,7 +85,7 @@
     url_password: "{{ jenkins_plugins_admin_password }}"
     state: "{{ item.value['state'] | default(present) }}"
     timeout: "{{ jenkins_plugins_updates_timeout }}"
-    updates_url: "{{ jenkins_plugins_updates_base_url }}"
+    updates_url: "{{ jenkins_plugins_download_base_url }}"
     updates_expiration: "{{ jenkins_plugins_updates_expiration }}"
     url: "{{ jenkins_plugins_jenkins_base_url }}"
   with_dict: "{{ jenkins_plugins_install_plugins | default({}) }}"

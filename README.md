@@ -81,6 +81,10 @@ Base URL to jenkins update site.
 
 Complete URL to update-center.json.
 
+    jenkins_plugins_download_base_url: "{{ jenkins_plugins_updates_base_url }}"
+
+Download base URL for the jenkins plugins (you can point this to a local mirror to speed up plugin installation).
+
     jenkins_plugins_failedplugins_check: true
 
 Controls if the role will fail when plugins are in failed state after installation.
