@@ -9,7 +9,7 @@ unnecessary timeconsuming executions of the `jenkins_plugin` module.
 
 ## Requirements
 
-This role requires Ansible 2.4 or higher and a running Jenkins on the
+This role requires Ansible 2.7 or higher and a running Jenkins on the
 target instance.
 
 ## Role Variables
