@@ -56,9 +56,6 @@
     - jenkins-plugins-update-check
   when: (jenkins_facts_updatecenter.updateAgeSeconds > jenkins_plugins_updates_expiration) or jenkins_plugins_update_center_result.changed
 
-- debug:
-    var: jenkins_plugins_update_center_result
-
 - name: Calculate plugins to install/update/remove.
   jenkins_plugin_helper:
     plugins_installed: "{{ jenkins_facts_plugins_installed }}"
