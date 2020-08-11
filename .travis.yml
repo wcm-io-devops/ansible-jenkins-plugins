@@ -1,7 +1,7 @@
 ---
 language: python
 cache: pip
-python: "2.7"
+python: "3.7"
 env:
   # run against latest version
   - ANSIBLE_VERSION=latest
