@@ -41,7 +41,7 @@
   register: jenkins_plugins_update_center_result
   changed_when: jenkins_plugins_update_center_result.output | regex_replace('^Result:\\s*(.*)\\n*$', '\\1') | bool
 
-- name: trigger jenkins update check.
+- name: trigger jenkins update check. # noqa 503
   uri:
     url: "{{ jenkins_plugins_jenkins_base_url }}/pluginManager/checkUpdatesServer"
     user: "{{ jenkins_plugins_admin_username }}"
