@@ -77,7 +77,7 @@ Timeout for jenkins update operation.
 
 Base URL to jenkins update site.
 
-    jenkins_plugins_updates_update_site_url: "{{ jenkins_plugins_updates_host }}/update-center.json"
+    jenkins_plugins_updates_update_site_url: "{{ jenkins_plugins_updates_base_url }}/update-center.json"
 
 Complete URL to update-center.json.
 
