@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/wcm-io-devops/ansible-jenkins-plugins.svg?branch=master)](https://travis-ci.org/wcm-io-devops/ansible-jenkins-plugins)
+
 # wcm_io_devops.jenkins_plugins
 
 This role manages the installation, update and uninstallation of Jenkins
