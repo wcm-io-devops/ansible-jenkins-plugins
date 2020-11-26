@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/wcm-io-devops/ansible-jenkins-plugins.svg?branch=master)](https://travis-ci.org/wcm-io-devops/ansible-jenkins-plugins)
+[![Build Status](https://travis-ci.com/wcm-io-devops/ansible-jenkins-plugins.svg?branch=master)](https://travis-ci.com/wcm-io-devops/ansible-jenkins-plugins)
 
 # wcm_io_devops.jenkins_plugins
 
