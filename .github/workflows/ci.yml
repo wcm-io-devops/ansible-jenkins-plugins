@@ -18,14 +18,17 @@ defaults:
 jobs:
 
   lint:
-    name: "Lint (Ansible ${{ matrix.ANSIBLE_VERSION }})"
+    name: "Lint (Ansible ${{ matrix.NAME }})"
     runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
-          - ANSIBLE_VERSION: 2.7.*
+          - NAME: Ansible 2.7
+            ANSIBLE_VERSION: 2.7.*
             ANSIBLE_LINT_VERSION: 4.2.*
-          - ANSIBLE_VERSION: latest
+          - NAME: Ansible latest
+            ANSIBLE_VERSION: *
+            ANSIBLE_LINT_VERSION: *
 
     steps:
       - name: Check out the codebase.
@@ -52,7 +55,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install test dependencies.
-        run: pip3 install yamllint ansible-lint
+        run: pip3 install yamllint ansible=="${{ ANSIBLE_VERSION }}" ansible-lint=="${{ ANSIBLE_LINT_VERSION }}"
 
       - name: Create ansible.cfg
         run: "printf '[defaults]\nroles_path=./tests/requirements/:../' > ansible.cfg"
