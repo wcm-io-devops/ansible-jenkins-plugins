@@ -23,6 +23,11 @@ jobs:
         with:
           path: 'wcm_io_devops.jenkins_plugins'
 
+      - name: Debug.
+        run: |
+          pwd
+          ls -la
+
       - name: Cache PIP
         uses: actions/cache@v2
         with:
