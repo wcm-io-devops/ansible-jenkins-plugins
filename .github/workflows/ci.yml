@@ -18,7 +18,7 @@ defaults:
 jobs:
 
   lint:
-    name: Lint
+    name: "Lint (Ansible ${{ matrix.ANSIBLE_VERSION }})"
     runs-on: ubuntu-latest
     strategy:
       matrix:
