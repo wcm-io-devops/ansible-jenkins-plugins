@@ -1,3 +1,4 @@
+---
 - name: check if jenkins is running.
   uri:
     url: "{{ jenkins_plugins_jenkins_base_url }}"

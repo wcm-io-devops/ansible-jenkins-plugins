@@ -1,3 +1,4 @@
+---
 # List of plugins that should be present/installed
 jenkins_plugins_present: []
 # format:
