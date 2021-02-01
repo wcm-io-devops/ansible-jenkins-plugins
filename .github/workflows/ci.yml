@@ -1,6 +1,9 @@
 ---
 name: CI
 
+env:
+  ROLE_NAME: wcm_io_devops.jenkins_plugins
+
 defaults:
   run:
     working-directory: 'wcm_io_devops.jenkins_plugins'
@@ -21,7 +24,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: 'wcm_io_devops.jenkins_plugins'
+          path: '${{ env.ROLE_NAME }}'
 
       - name: Debug.
         run: |
@@ -39,7 +42,7 @@ jobs:
       - name: Install role requirements
         uses: BSFishy/pip-action@v1
         with:
-          requirements: "requirements.txt"
+          requirements: "${{ env.ROLE_NAME }}/requirements.txt"
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
