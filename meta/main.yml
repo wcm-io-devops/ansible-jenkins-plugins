@@ -1,3 +1,4 @@
+---
 galaxy_info:
   role_name: jenkins_plugins
   author: Tobias Richter
@@ -8,10 +9,10 @@ galaxy_info:
   min_ansible_version: 2.7
 
   platforms:
-  - name: Debian
-    versions:
-    - stretch
-    - buster
+    - name: Debian
+      versions:
+        - stretch
+        - buster
 
   galaxy_tags:
     - wcmio
@@ -19,22 +20,20 @@ galaxy_info:
 
 dependencies:
   # ensure service is started
-  - { role: wcm_io_devops.jenkins_service,
-      version: 1.2.1,
-      jenkins_service_hostname: "{{ jenkins_plugins_jenkins_hostname }}",
-      jenkins_service_port: "{{ jenkins_plugins_jenkins_port }}",
-      jenkins_service_url_prefix: "{{ jenkins_plugins_jenkins_url_prefix }}",
-      jenkins_service_admin_username: "{{ jenkins_plugins_admin_username }}",
-      jenkins_service_admin_password: "{{ jenkins_plugins_admin_password }}",
-      jenkins_service_state: started
-  }
+  - role: wcm_io_devops.jenkins_service
+    version: 1.2.1
+    jenkins_service_hostname: "{{ jenkins_plugins_jenkins_hostname }}"
+    jenkins_service_port: "{{ jenkins_plugins_jenkins_port }}"
+    jenkins_service_url_prefix: "{{ jenkins_plugins_jenkins_url_prefix }}"
+    jenkins_service_admin_username: "{{ jenkins_plugins_admin_username }}"
+    jenkins_service_admin_password: "{{ jenkins_plugins_admin_password }}"
+    jenkins_service_state: started
   # gather facts about the jenkins
-  - { role: wcm_io_devops.jenkins_facts,
-      version: 1.3.1,
-      jenkins_facts_admin_username: "{{ jenkins_plugins_admin_username }}",
-      jenkins_facts_admin_password: "{{ jenkins_plugins_admin_password }}",
-      jenkins_facts_jenkins_hostname: "{{ jenkins_plugins_jenkins_hostname }}",
-      jenkins_facts_jenkins_port: "{{ jenkins_plugins_jenkins_port }}",
-      jenkins_facts_jenkins_url_prefix: "{{ jenkins_plugins_jenkins_url_prefix }}",
-      tags: ['wcm_io_devops.jenkins_plugins.jenkins_facts']
-   }
+  - role: wcm_io_devops.jenkins_facts
+    version: 1.3.1
+    jenkins_facts_admin_username: "{{ jenkins_plugins_admin_username }}"
+    jenkins_facts_admin_password: "{{ jenkins_plugins_admin_password }}"
+    jenkins_facts_jenkins_hostname: "{{ jenkins_plugins_jenkins_hostname }}"
+    jenkins_facts_jenkins_port: "{{ jenkins_plugins_jenkins_port }}"
+    jenkins_facts_jenkins_url_prefix: "{{ jenkins_plugins_jenkins_url_prefix }}"
+    tags: ['wcm_io_devops.jenkins_plugins.jenkins_facts']

@@ -1,3 +1,4 @@
+---
 - name: check if jenkins is running.
   uri:
     url: "{{ jenkins_plugins_jenkins_base_url }}"
@@ -41,7 +42,7 @@
   register: jenkins_plugins_update_center_result
   changed_when: jenkins_plugins_update_center_result.output | regex_replace('^Result:\\s*(.*)\\n*$', '\\1') | bool
 
-- name: trigger jenkins update check. # noqa 503
+- name: trigger jenkins update check.  # noqa 503
   uri:
     url: "{{ jenkins_plugins_jenkins_base_url }}/pluginManager/checkUpdatesServer"
     user: "{{ jenkins_plugins_admin_username }}"
@@ -54,7 +55,9 @@
     status_code: 302
   tags:
     - jenkins-plugins-update-check
-  when: (jenkins_facts_updatecenter.updateAgeSeconds > jenkins_plugins_updates_expiration) or jenkins_plugins_update_center_result.changed
+  when: >
+    (jenkins_facts_updatecenter.updateAgeSeconds > jenkins_plugins_updates_expiration) or
+    jenkins_plugins_update_center_result.changed
 
 - name: Calculate plugins to install/update/remove.
   jenkins_plugin_helper:
@@ -66,11 +69,11 @@
 
 - name: Log plugins that will be installed/uninstalled.
   debug:
-      msg:
-        - "jenkins_plugins_install_plugins"
-        - "{{ jenkins_plugins_install_plugins }}"
-        - "jenkins_plugins_uninstall_plugins"
-        - "{{ jenkins_plugins_uninstall_plugins }}"
+    msg:
+      - "jenkins_plugins_install_plugins"
+      - "{{ jenkins_plugins_install_plugins }}"
+      - "jenkins_plugins_uninstall_plugins"
+      - "{{ jenkins_plugins_uninstall_plugins }}"
   when: jenkins_plugins_debug | bool
 
 - name: Install/Manage Jenkins plugins.
@@ -116,23 +119,23 @@
     - skip_ansible_lint
 
 - block:
-  - name: "gather jenkins facts."
-    include_role:
-      name: "wcm_io_devops.jenkins_facts"
-      tasks_from: "gather_jenkins_facts.yml"
-    vars:
-      jenkins_facts_admin_username: "{{ jenkins_plugins_admin_username }}"
-      jenkins_facts_admin_password: "{{ jenkins_plugins_admin_password }}"
-      jenkins_facts_jenkins_hostname: "{{ jenkins_plugins_jenkins_hostname }}"
-      jenkins_facts_jenkins_port: "{{ jenkins_plugins_jenkins_port }}"
-      jenkins_facts_jenkins_url_prefix: "{{ jenkins_plugins_jenkins_url_prefix }}"
+    - name: "gather jenkins facts."
+      include_role:
+        name: "wcm_io_devops.jenkins_facts"
+        tasks_from: "gather_jenkins_facts.yml"
+      vars:
+        jenkins_facts_admin_username: "{{ jenkins_plugins_admin_username }}"
+        jenkins_facts_admin_password: "{{ jenkins_plugins_admin_password }}"
+        jenkins_facts_jenkins_hostname: "{{ jenkins_plugins_jenkins_hostname }}"
+        jenkins_facts_jenkins_port: "{{ jenkins_plugins_jenkins_port }}"
+        jenkins_facts_jenkins_url_prefix: "{{ jenkins_plugins_jenkins_url_prefix }}"
 
-  - name: "assert that there are no failed plugins."
-    assert:
-      that: jenkins_facts_plugins_failed | length == 0
-      msg: >
-        {{ jenkins_facts_plugins_failed | length }} plugin(s) failed to load!
-        {{ jenkins_facts_plugins_failed }}
+    - name: "assert that there are no failed plugins."
+      assert:
+        that: jenkins_facts_plugins_failed | length == 0
+        msg: >
+          {{ jenkins_facts_plugins_failed | length }} plugin(s) failed to load!
+          {{ jenkins_facts_plugins_failed }}
 
   when:
     - jenkins_plugins_failedplugins_check | bool

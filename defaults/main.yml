@@ -1,3 +1,4 @@
+---
 # List of plugins that should be present/installed
 jenkins_plugins_present: []
 # format:
@@ -61,10 +62,10 @@ jenkins_plugins_proxy_username: ""
 jenkins_plugins_proxy_password: ""
 
 # The update center proxy host, only evaluated when jenkins_plugins_proxy_port is set
-#jenkins_plugins_proxy_host: ""
+# jenkins_plugins_proxy_host: ""
 
 # The update center proxy port, only evaluated when jenkins_plugins_proxy_host is set
-#jenkins_plugins_proxy_port: ""
+# jenkins_plugins_proxy_port: ""
 
 # The update center proxy no proxy hosts list, one item per host
 jenkins_plugins_proxy_no_proxy_hosts: []
