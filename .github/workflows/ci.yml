@@ -62,11 +62,9 @@ jobs:
 
       - name: Lint code.
         run: |
-          ls -la
-          pwd
           yamllint .
           ansible-lint
 
-      - name: debug
+      - name: Test syntax.
         run: |
-          ansible-playbook --version
+          ansible-playbook tests/test.yml -i tests/inventory --syntax-check
