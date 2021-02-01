@@ -20,16 +20,18 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - ANSIBLE_VERSION: 2.7.*
+            ANSIBLE_LINT_VERSION: 4.2.*
+          - ANSIBLE_VERSION: latest
+
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
           path: '${{ env.ROLE_NAME }}'
-
-      - name: Debug.
-        run: |
-          pwd
-          ls -la
 
       - name: Cache PIP
         uses: actions/cache@v2
@@ -58,5 +60,6 @@ jobs:
       - name: Lint code.
         run: |
           ls -la
+          pwd
           yamllint .
           ansible-lint
