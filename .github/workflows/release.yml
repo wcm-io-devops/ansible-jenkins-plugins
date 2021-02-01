@@ -7,7 +7,7 @@ defaults:
   run:
     working-directory: '${{ env.ROLE_NAME }}'
 
-on:
+'on':
   release:
     types:
       - published
