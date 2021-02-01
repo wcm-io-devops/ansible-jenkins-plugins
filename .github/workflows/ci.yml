@@ -78,6 +78,7 @@ jobs:
         run: |
           ansible-playbook tests/test.yml -i tests/inventory --syntax-check
   galaxy:
+    name: "Ansible Galaxy import"
     needs:
       - lint
     runs-on: ubuntu-latest
