@@ -78,7 +78,7 @@ jobs:
         run: |
           ansible-playbook tests/test.yml -i tests/inventory --syntax-check
   galaxy:
-    needs: 
+    needs:
       - lint
     runs-on: ubuntu-latest
     steps:
