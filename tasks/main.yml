@@ -42,7 +42,7 @@
   register: jenkins_plugins_update_center_result
   changed_when: jenkins_plugins_update_center_result.output | regex_replace('^Result:\\s*(.*)\\n*$', '\\1') | bool
 
-- name: trigger jenkins update check. # noqa 503
+- name: trigger jenkins update check.  # noqa 503
   uri:
     url: "{{ jenkins_plugins_jenkins_base_url }}/pluginManager/checkUpdatesServer"
     user: "{{ jenkins_plugins_admin_username }}"
@@ -55,7 +55,9 @@
     status_code: 302
   tags:
     - jenkins-plugins-update-check
-  when: (jenkins_facts_updatecenter.updateAgeSeconds > jenkins_plugins_updates_expiration) or jenkins_plugins_update_center_result.changed
+  when: >
+    (jenkins_facts_updatecenter.updateAgeSeconds > jenkins_plugins_updates_expiration) or
+    jenkins_plugins_update_center_result.changed
 
 - name: Calculate plugins to install/update/remove.
   jenkins_plugin_helper:
