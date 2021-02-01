@@ -24,11 +24,11 @@ jobs:
       matrix:
         include:
           - NAME: Ansible 2.7
-            ANSIBLE_VERSION: 2.7.*
-            ANSIBLE_LINT_VERSION: 4.2.*
+            ANSIBLE_VERSION: "2.7.*"
+            ANSIBLE_LINT_VERSION: "4.2.*"
           - NAME: Ansible latest
-            ANSIBLE_VERSION: *
-            ANSIBLE_LINT_VERSION: *
+            ANSIBLE_VERSION: "*"
+            ANSIBLE_LINT_VERSION: "*"
 
     steps:
       - name: Check out the codebase.
