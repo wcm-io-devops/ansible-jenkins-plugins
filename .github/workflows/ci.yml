@@ -1,9 +1,6 @@
 ---
 name: CI
 
-env:
-  ROLE_NAME: wcm_io_devops.jenkins_plugins
-
 defaults:
   run:
     working-directory: 'wcm_io_devops.jenkins_plugins'
@@ -23,6 +20,8 @@ jobs:
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
+        with:
+          path: 'wcm_io_devops.jenkins_plugins'
 
       - name: Cache PIP
         uses: actions/cache@v2
