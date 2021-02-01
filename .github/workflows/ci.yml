@@ -63,7 +63,7 @@ jobs:
 
       - name: Install Galaxy requirements.
         run: |
-          ansible-galaxy install -r tests/requirements.yml
+          ansible-galaxy install -r tests/requirements.yml -p ./tests/requirements
 
       - name: Lint code.
         run: |
