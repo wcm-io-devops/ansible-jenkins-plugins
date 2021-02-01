@@ -23,10 +23,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - NAME: Ansible 2.7
+          - NAME: min_ansible_version
             ANSIBLE_VERSION: "==2.7.*"
             ANSIBLE_LINT_VERSION: "==4.2.*"
-          - NAME: Ansible latest
+          - NAME: latest
             ANSIBLE_VERSION: ""
             ANSIBLE_LINT_VERSION: ""
 
