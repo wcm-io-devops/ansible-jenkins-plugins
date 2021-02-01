@@ -57,9 +57,13 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install pip dependencies.
+      - name: Install pip tools.
         run: |
-          pip3 install wheel yamllint ansible${{ matrix.ANSIBLE_VERSION }} ansible-lint${{ matrix.ANSIBLE_LINT_VERSION }} --upgrade
+          pip3 install wheel --upgrade
+
+      - name: Install test dependencies.
+        run: |
+          pip3 install yamllint ansible${{ matrix.ANSIBLE_VERSION }} ansible-lint${{ matrix.ANSIBLE_LINT_VERSION }} --upgrade
 
       - name: Install Galaxy requirements.
         run: |
