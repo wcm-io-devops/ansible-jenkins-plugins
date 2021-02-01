@@ -55,7 +55,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install test dependencies.
-        run: pip3 install yamllint ansible=="${{ ANSIBLE_VERSION }}" ansible-lint=="${{ ANSIBLE_LINT_VERSION }}"
+        run: pip3 install yamllint ansible=="${{ matrix.ANSIBLE_VERSION }}" ansible-lint=="${{ matrix.ANSIBLE_LINT_VERSION }}"
 
       - name: Create ansible.cfg
         run: "printf '[defaults]\nroles_path=./tests/requirements/:../' > ansible.cfg"
