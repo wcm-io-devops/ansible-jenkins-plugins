@@ -42,7 +42,7 @@ jobs:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ matrix.ANSIBLE_VERSION }}-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
-            ${{ runner.os }}-pip-
+            ${{ runner.os }}-pip-${{ matrix.ANSIBLE_VERSION }}-
 
       - name: Install role requirements
         uses: BSFishy/pip-action@v1
@@ -66,3 +66,7 @@ jobs:
           pwd
           yamllint .
           ansible-lint
+
+      - name: debug
+        run: |
+          ansible-playbook --version
