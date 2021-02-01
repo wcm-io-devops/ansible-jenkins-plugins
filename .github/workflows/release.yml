@@ -6,7 +6,7 @@ env:
 
 defaults:
   run:
-    working-directory: '${{ env.ROLE_NAME }}'
+    working-directory: 'wcm_io_devops.jenkins_plugins'
 
 'on':
   release:
