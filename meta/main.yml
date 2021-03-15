@@ -1,6 +1,7 @@
 ---
 galaxy_info:
   role_name: jenkins_plugins
+  namespace: wcm_io_devops
   author: Tobias Richter
   description: Role for maintaining plugins on Jenkins instances.
   company: pro!vision
