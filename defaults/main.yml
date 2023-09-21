@@ -75,3 +75,9 @@ jenkins_plugins_proxy_no_proxy_hosts: []
 # Controls if the initial setup of the jenkins instance should be completed.
 # This may be necessary in proxy environments where the jenkins instance still thinks it is in offline mode
 jenkins_plugins_complete_initial_setup: false
+
+# Owner of the files in the jenkins plugins folder
+jenkins_plugins_owner: "jenkins"
+
+# Group of the files in the jenkins plugin folder
+jenkins_plugins_group: "{{ jenkins_plugins_owner }}"

@@ -120,6 +120,14 @@ The update center proxy no proxy hosts list.
 Controls if the initial setup of the jenkins instance should be completed.
 This may be necessary in proxy environments where the jenkins instance still thinks it is in offline mode.
 
+    jenkins_plugins_owner: "jenkins"
+
+User owning the files in the plugins folder
+
+    jenkins_plugins_group: "jenkins"
+
+Group owning the files in the plugins folder
+
 ## Dependencies
 
 This role depends on the
