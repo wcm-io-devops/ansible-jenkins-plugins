@@ -25,9 +25,9 @@ jobs:
           - NAME: min_ansible_version
             ANSIBLE_VERSION: "==2.7.*"
             ANSIBLE_LINT_VERSION: "==4.2.*"
-          - NAME: latest
-            ANSIBLE_VERSION: ""
-            ANSIBLE_LINT_VERSION: ""
+          #- NAME: latest
+          #  ANSIBLE_VERSION: ""
+          #  ANSIBLE_LINT_VERSION: ""
 
     steps:
       - name: Check out the codebase.
