@@ -88,6 +88,8 @@
     updates_url: "{{ jenkins_plugins_download_base_url }}"
     updates_expiration: "{{ jenkins_plugins_updates_expiration }}"
     url: "{{ jenkins_plugins_jenkins_base_url }}"
+    owner: "{{ jenkins_plugins_owner }}"
+    group: "{{ jenkins_plugins_group }}"
   with_dict: "{{ jenkins_plugins_install_plugins | default({}) }}"
   changed_when: jenkins_plugins_install_plugins | default({}) | length > 0
   notify:
