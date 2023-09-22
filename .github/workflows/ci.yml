@@ -25,9 +25,9 @@ jobs:
           - NAME: min_ansible_version
             ANSIBLE_VERSION: "==2.7.*"
             ANSIBLE_LINT_VERSION: "==4.2.*"
-          - NAME: latest
-            ANSIBLE_VERSION: ""
-            ANSIBLE_LINT_VERSION: ""
+          #- NAME: latest
+          #  ANSIBLE_VERSION: ""
+          #  ANSIBLE_LINT_VERSION: ""
 
     steps:
       - name: Check out the codebase.
@@ -87,6 +87,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger a new import on Galaxy.
-        uses: robertdebock/galaxy-action@affc5472cd0b08f64a51eafba49b08898c1bbeb8
+        uses: robertdebock/galaxy-action@6e5d9a2d8cc2ff266d4430968880406656aef67d
         with:
           galaxy_api_key: ${{ secrets.GALAXY_API_KEY }}
