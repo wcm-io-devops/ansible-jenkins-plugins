@@ -122,11 +122,11 @@ This may be necessary in proxy environments where the jenkins instance still thi
 
     jenkins_plugins_owner: "jenkins"
 
-User owning the files in the plugins folder
+User owning the files in the plugins folder.
 
     jenkins_plugins_group: "jenkins"
 
-Group owning the files in the plugins folder
+Group owning the files in the plugins folder.
 
 ## Dependencies
 
